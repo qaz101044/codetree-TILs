@@ -205,7 +205,7 @@ for t in range(K) :
                 target_x = strong_3[0][0]
                 target_y = strong_3[0][1]
 
-            ### 행과 열이 가장 작은 포탑
+            ### 열이 가장 작은 포탑
             else :
                 y_min_2 = 987654321
                 strong_4 = []
