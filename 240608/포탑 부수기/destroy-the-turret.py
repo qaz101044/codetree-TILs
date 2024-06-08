@@ -272,14 +272,14 @@ for t in range(K) :
 
                 if board[x_t][y_t] != 0 :
 
-                    ### 공격자가 해당되는 경우
-                    if x_t == att_x and y_t == att_y :
-                        board[att_x][att_y] += (board[att_x][att_y])
+                    if x_t != att_x and y_t != att_y :
 
-                    board[x_t][y_t] -= (board[att_x][att_y] //2)
-                    if board[x_t][y_t] <= 0 :
-                        board[x_t][y_t] = 0
-                    attacked[x_t][y_t] = 0
+                        board[x_t][y_t] -= (board[att_x][att_y] //2)
+                        if board[x_t][y_t] <= 0 :
+                            board[x_t][y_t] = 0
+                        attacked[x_t][y_t] = 0
+
+                    
     
     #print(attacked)
 
