@@ -222,9 +222,9 @@ for t in range(K) :
     ## 공격자 공격력 상승
     board[att_x][att_y] += (N+M)
 
-    #print('---before----',t)
-    #for q in range(N) :
-    #    print(board[q])
+    print('---before----',t)
+    for q in range(N) :
+        print(board[q])
 
     ## 전체 공격 시간 1초 증가 (관련자는 이후 0초로 초기화)
     for idx1 in range(N) :
@@ -287,9 +287,9 @@ for t in range(K) :
         for idj in range(M) :
             if attacked[idn][idj] != 0 and board[idn][idj] != 0 :
                 board[idn][idj] += 1
-    #print('----after----',t)
-    #for q in range(N) :
-    #    print(board[q])
+    print('----after----',t)
+    for q in range(N) :
+        print(board[q])
 
 
 answer_MAX = -987654321
