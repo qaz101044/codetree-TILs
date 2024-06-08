@@ -135,13 +135,13 @@ for t in range(K) :
         att_x = temp_2[0][0]
         att_y = temp_2[0][1]
         
-        ### 행과 열의 합이 가장 작은 포탑 선정
+        ### 행과 열의 합이 가장 큰 포탑 선정
     else :
-        sum_min = 987654321
+        sum_min = -987654321
         temp_3 = []
 
         for x_2,y_2 in temp_2 :
-            if x_2 + y_2 < sum_min :
+            if x_2 + y_2 > sum_min :
                 sum_min = x_2 + y_2
                 temp_3 = []
                 temp_3.append((x_2,y_2))
@@ -152,13 +152,13 @@ for t in range(K) :
             att_x = temp_3[0][0]
             att_y = temp_3[0][1]
             
-            ### 열 값이 가장 작은 포탑
+            ### 열 값이 가장 큰 포탑
         else :
-            y_min = 987654321
+            y_min = -987654321
             temp_4 = []
 
             for x_3,y_3 in temp_3 :
-                if y_3 < y_min :
+                if y_3 > y_min :
                     y_min = y_3
                     temp_4 = []
                     temp_4.append((x_3,y_3))
@@ -172,11 +172,12 @@ for t in range(K) :
         target_y = strong_1[0][1]
     
     ### 공격력이 가장 높은 포탑이 2개 이상인 경우
+    ### 공격한지 가장 오래된 포탑
     else :
-        attacked_min_2 = 987654321
+        attacked_min_2 = -987654321
         strong_2 = []
         for a_1,b_1 in strong_1 :
-            if attacked[a_1][b_1] < attacked_min_2 :
+            if attacked[a_1][b_1] > attacked_min_2 :
                 attacked_min_2 = attacked[a_1][b_1]
                 strong_2 = []
                 strong_2.append((a_1,b_1))
@@ -187,7 +188,7 @@ for t in range(K) :
             target_x = strong_2[0][0]
             target_y = strong_2[0][1]
 
-        ### 행과 열의 합이 가장 작은 포탑 선정    
+        ### 행과 열이 가장 작은 포탑 
         else :
             sum_min_2 = 987654321
             strong_3 = []
@@ -204,6 +205,7 @@ for t in range(K) :
                 target_x = strong_3[0][0]
                 target_y = strong_3[0][1]
 
+            ### 행과 열이 가장 작은 포탑
             else :
                 y_min_2 = 987654321
                 strong_4 = []
@@ -219,6 +221,10 @@ for t in range(K) :
     
     ## 공격자 공격력 상승
     board[att_x][att_y] += (N+M)
+
+    #print('---before----',t)
+    #for q in range(N) :
+    #    print(board[q])
 
     ## 전체 공격 시간 1초 증가 (관련자는 이후 0초로 초기화)
     for idx1 in range(N) :
@@ -275,13 +281,15 @@ for t in range(K) :
                     attacked[x_t][y_t] = 0
     
     #print(attacked)
-    #print(board)
 
     ## 포탑 정비
     for idn in range(N) :
         for idj in range(M) :
             if attacked[idn][idj] != 0 and board[idn][idj] != 0 :
                 board[idn][idj] += 1
+    #print('----after----',t)
+    #for q in range(N) :
+    #    print(board[q])
 
 
 answer_MAX = -987654321
@@ -290,4 +298,5 @@ for i in range(N) :
         if board[i][j] != 0 and board[i][j] > answer_MAX :
             answer_MAX = board[i][j]
 
+#print(board)
 print(answer_MAX)
