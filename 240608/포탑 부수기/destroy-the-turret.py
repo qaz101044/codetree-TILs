@@ -238,9 +238,27 @@ for t in range(K) :
     damaged_list = bfs(att_x,att_y,target_x,target_y,board,visited,N,M)
     #print(len(damaged_list))
 
+    chk_laser = 0
+    ## 북/동/남/서
+    dq_x = [-1,0,1,0]
+    dq_y = [0,1,0,-1]
+    for p in range(4) :
+        next_x = (att_x + dq_x[p]) % N
+        next_y = (att_y + dq_y[p]) % M
+
+        if next_x == target_x and next_y == target_y :
+            chk_laser = 1
     
+    #print('---------')
+    #print(att_x,att_y)
+    #print(target_x,target_y)
+    #for g in range(N) :
+        #print(board[g])
+    #print('---------')
+
+    #print(chk_laser)
     ### 레이저 공격 가능
-    if len(damaged_list) != 0 :
+    if len(damaged_list) != 0 or chk_laser == 1:
 
         ### 공격 대상자 포탑은 공격자 공격력만큼의 공격을 받습니다.
         board[target_x][target_y] -= board[att_x][att_y]
@@ -248,14 +266,15 @@ for t in range(K) :
             board[target_x][target_y] = 0
         attacked[target_x][target_y] = 0
         ### 레이저 경로에 있는 포탑들은 공격자 공격력의 절반 만큼의 공격을 받습니다.
-        for l_x,l_y in damaged_list :
-            if l_x == att_x and l_y == att_y :
-                continue
-            else :
-                board[l_x][l_y] -= (board[att_x][att_y] // 2)
-                if board[l_x][l_y] <= 0 :
-                    board[l_x][l_y] = 0
-                attacked[l_x][l_y] = 0
+        if len(damaged_list) >= 1 :
+            for l_x,l_y in damaged_list :
+                if l_x == att_x and l_y == att_y :
+                    continue
+                else :
+                    board[l_x][l_y] -= (board[att_x][att_y] // 2)
+                    if board[l_x][l_y] <= 0 :
+                        board[l_x][l_y] = 0
+                    attacked[l_x][l_y] = 0
     
     ## 포탄 공격
     else :
@@ -265,20 +284,22 @@ for t in range(K) :
             board[target_x][target_y] = 0
         attacked[target_x][target_y] = 0
         ### 경계무시 8방향 공격
+        saved = board[att_x][att_y]
         for zx in range(-1,2) :
             for zy in range(-1,2) :
                 x_t = (target_x + zx) % N
                 y_t = (target_y + zy) % M
+                #print("chk",x_t,y_t)
 
                 if board[x_t][y_t] != 0 :
 
-                    if x_t != att_x and y_t != att_y :
-
-                        board[x_t][y_t] -= (board[att_x][att_y] //2)
-                        if board[x_t][y_t] <= 0 :
-                            board[x_t][y_t] = 0
-                        attacked[x_t][y_t] = 0
-
+                    board[x_t][y_t] -= (board[att_x][att_y] //2)
+                    if board[x_t][y_t] <= 0 :
+                        board[x_t][y_t] = 0
+                    attacked[x_t][y_t] = 0
+                
+                if x_t == att_x and y_t == att_y :
+                    board[att_x][att_y] += saved
                     
     
     #print(attacked)
@@ -288,6 +309,12 @@ for t in range(K) :
         for idj in range(M) :
             if attacked[idn][idj] != 0 and board[idn][idj] != 0 :
                 board[idn][idj] += 1
+    #print('---------')
+    #print(att_x+1,att_y+1)
+    #print(target_x+1,target_y+1)
+    #for g in range(N) :
+    #    print(board[g])
+    #print('---------')
 
 
 answer_MAX = -987654321
