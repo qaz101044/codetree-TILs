@@ -95,10 +95,10 @@ for t in range(K) :
                 if board[i][j] < tower_MIN :
                     tower_MIN = board[i][j]
                     temp = []
-                    temp.append((i,j)) ## 이후 x좌표 + 1 , y좌표 + 1해서 공격력 계산해야함
+                    temp.append((i,j)) 
                 
                 elif board[i][j] == tower_MIN :
-                    temp.append((i,j)) ## 이후 x좌표 + 1 , y좌표 + 1해서 공격력 계산해야함
+                    temp.append((i,j)) 
 
                 ## 가장 강한 포탑 찾기
                 if board[i][j] > tower_MAX :
@@ -188,7 +188,7 @@ for t in range(K) :
             target_x = strong_2[0][0]
             target_y = strong_2[0][1]
 
-        ### 행과 열이 가장 작은 포탑 
+        ### 행과 열의 합이 가장 작은 포탑 
         else :
             sum_min_2 = 987654321
             strong_3 = []
@@ -221,10 +221,6 @@ for t in range(K) :
     
     ## 공격자 공격력 상승
     board[att_x][att_y] += (N+M)
-
-    print('---before----',t)
-    for q in range(N) :
-        print(board[q])
 
     ## 전체 공격 시간 1초 증가 (관련자는 이후 0초로 초기화)
     for idx1 in range(N) :
@@ -275,6 +271,11 @@ for t in range(K) :
                 y_t = (target_y + zy) % M
 
                 if board[x_t][y_t] != 0 :
+
+                    ### 공격자가 해당되는 경우
+                    if x_t == att_x and y_t == att_y :
+                        continue
+
                     board[x_t][y_t] -= (board[att_x][att_y] //2)
                     if board[x_t][y_t] <= 0 :
                         board[x_t][y_t] = 0
@@ -287,9 +288,6 @@ for t in range(K) :
         for idj in range(M) :
             if attacked[idn][idj] != 0 and board[idn][idj] != 0 :
                 board[idn][idj] += 1
-    print('----after----',t)
-    for q in range(N) :
-        print(board[q])
 
 
 answer_MAX = -987654321
