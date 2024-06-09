@@ -12,6 +12,9 @@ for i in range(M) :
 dx = [0,-1,-1,-1,0,1,1,1]
 dy = [1,1,0,-1,-1,-1,0,1]
 
+dx_2 = [-1,-1,1,1]
+dy_2 = [-1,1,-1,1]
+
 ## 특수 영양제
 nut = []
 ### 초기 특수 영양제는 좌하단 4개의 칸에 주어집니다.
@@ -40,27 +43,14 @@ for direction,distance in move_year :
     ## 특수 영양제가 있는 땅의 리브로스는 "대각선"으로 인접한 높이 1이상 리브로수의 개수 만큼 높이가 증가
     for x_grow,y_grow in new_nut :
         chk = 0
-        ### 11시 방향 추가
-        if board[(x_grow-1) % N][(y_grow-1) % N] >= 1 :
-            if (x_grow-1) < N and (y_grow-1) < N :
-                chk += 1
 
-        ### 01시 방향 추가
-        if board[(x_grow-1) % N][(y_grow+1) % N] >= 1 :
-            if (x_grow-1) < N and (y_grow+1) < N  :
-                chk += 1
-        
-        ### 07시 방향 추가
-        if board[(x_grow+1) % N][(y_grow-1) % N] >= 1 :
-            if (x_grow+1) < N and (y_grow-1) < N :
-                chk += 1
-                #print(x_grow,y_grow)
-        
-        ### 05시 방향 추가
-        if board[(x_grow+1) % N][(y_grow+1) % N] >= 1 :
-            if (x_grow+1) < N and (y_grow+1) < N :
-                chk += 1
-        
+        for d in range(4) :
+            nx = x_grow + dx_2[d]
+            ny = y_grow + dy_2[d]
+
+            if 0 <= nx < N and 0 <= ny < N :
+                if board[nx][ny] >= 1 :
+                    chk += 1
         #print(x_grow,y_grow,chk)
         board[x_grow][y_grow] += chk
 
@@ -72,8 +62,10 @@ for direction,distance in move_year :
                 if board[i][j] >= 2 :
                     board[i][j] -= 2
                     next_nut.append((i,j))
-        
     nut = next_nut
+    #for g in range(N) :
+    #    print(board[g])
+    #print('----------')
 
 answer = 0
 for q in range(N) :
