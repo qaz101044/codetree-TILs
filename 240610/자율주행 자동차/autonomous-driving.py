@@ -58,6 +58,7 @@ while break_point == 0 :
         x = bx
         y = by
         visited[bx][by] = 1
+        d += 2
 
 answer = 0
 for i in range(N) :
