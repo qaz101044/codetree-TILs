@@ -36,7 +36,7 @@ while True :
         visited[nx][ny] = 1
 
     else :
-        if cnt < 4 :
+        if cnt < 5 :
             cnt += 1
     
     ## 3 단계
