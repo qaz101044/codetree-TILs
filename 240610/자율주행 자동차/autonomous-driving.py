@@ -15,14 +15,12 @@ for i in range(N) :
 
 visited = [[0 for j in range(M)] for i in range(N)]
 
-q = deque()
-q.append((x,y))
 visited[x][y] = 1
 
 break_point = 0
 cnt = 0
 
-while break_point == 0 :
+while True :
 
     d -= 1
     if d < 0 :
@@ -42,25 +40,17 @@ while break_point == 0 :
             cnt += 1
     
     ## 3 단계
-    
-    d -= 2
-    if d < 0 :
-        d += 4
-    
-    bx = x + dx[d]
-    by = y + dy[d]
+    bx = x + dx[(d+2)%4]
+    by = y + dy[(d+2)%4]
 
-    if board[bx][by] == 1 :
-        break_point = 1
-    
-    else :
-        cnt = 0
-        d += 2
-        if d >= 4 :
-            d = d%4
+    if board[bx][by] == 0 :
         x = bx
         y = by
+        cnt = 0
         visited[bx][by] = 1
+    
+    else :
+        break
 
 answer = 0
 for i in range(N) :
