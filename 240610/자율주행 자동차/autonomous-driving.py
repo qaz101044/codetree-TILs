@@ -36,21 +36,22 @@ while True :
         visited[nx][ny] = 1
 
     else :
-        if cnt < 5 :
+        if cnt < 4 :
             cnt += 1
     
-    ## 3 단계
-    bx = x + dx[(d+2)%4]
-    by = y + dy[(d+2)%4]
+    if cnt == 4 :
+        ## 3 단계
+        bx = x + dx[(d+2)%4]
+        by = y + dy[(d+2)%4]
 
-    if board[bx][by] == 0 :
-        x = bx
-        y = by
-        cnt = 0
-        visited[bx][by] = 1
-    
-    else :
-        break
+        if board[bx][by] == 0 :
+            x = bx
+            y = by
+            cnt = 0
+            visited[bx][by] = 1
+        
+        else :
+            break
 
 answer = 0
 for i in range(N) :
