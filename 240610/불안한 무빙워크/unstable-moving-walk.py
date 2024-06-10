@@ -33,6 +33,10 @@ while break_point != 1 :
                 people[i] = 0
                 board[i+1] -= 1
     
+    ## 도착한 사람은 내림
+    if people[n-1] >= 1 :
+        people[n-1] = 0
+    
     ## 사람 올리기 : 0번 칸에 사람이 없고 안정성이 0이 아니라면 한 명 올립니다.
     if board[0] >= 1 and people[0] == 0 :
         people[0] = 1
