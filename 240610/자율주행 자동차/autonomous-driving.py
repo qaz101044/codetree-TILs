@@ -55,10 +55,12 @@ while break_point == 0 :
     
     else :
         cnt = 0
+        d += 2
+        if d >= 4 :
+            d = d%4
         x = bx
         y = by
         visited[bx][by] = 1
-        d += 2
 
 answer = 0
 for i in range(N) :
