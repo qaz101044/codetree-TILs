@@ -128,6 +128,9 @@ for i in range(M) :
 
     kill_cell.sort(key=lambda x:(x[0],x[1]))
 
+    if kill_tree == -987654321 :
+        break
+
     for x,y in kill_cell :
         killer[x][y] = 0
         if board[x][y] >= 1 :
