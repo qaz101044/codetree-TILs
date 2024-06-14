@@ -36,7 +36,7 @@ def search_close_base_from_store(gx,gy) :
             ny_1 = sy + dy[d_1]
 
             if 0 <= nx_1 < N and 0 <= ny_1 < N :
-                if visited_1[nx_1][ny_1] == 0 :
+                if visited_1[nx_1][ny_1] == 0 and board[nx_1][ny_1] != -1:
                     if board[nx_1][ny_1] == 0 :
                         visited_1[nx_1][ny_1] = visited_1[sx][sy] + 1
                         q_1.append((nx_1,ny_1))
@@ -88,13 +88,14 @@ people = []
 for _ in range(M) :
     people.append([-1,-1])
 
+##print(goal)
+##print("**************")
 ###################################
 ###############메인 함수#############
 ####################################
 
 T = 0
 arrival = 0
-cnt = 0
 while arrival != M :
     T += 1
 
@@ -131,6 +132,7 @@ while arrival != M :
 
                 if people[i][0] == goal[i][0] and people[i][1] == goal[i][1] :
                     arrival += 1
+                    board[goal[i][0]][goal[i][1]] = -1
 
     ## 현재 시간이 T분이고 T <= M을 만족한다면, T번 사람은 자신이 가고 싶은 편의점과 가장 가까이 있는 베이스 캠프로 이동
     if T <= M :
@@ -142,11 +144,11 @@ while arrival != M :
 
         ## 오류 처리
         if base_x == -1 :
-            print("ERROR")
+            ##print("ERROR")
             break
 
     ##print(people)
-    ##print(cnt)
+    ##print(arrival)
 
 ##print('ok')
 print(T)
