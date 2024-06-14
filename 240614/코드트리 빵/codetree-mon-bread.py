@@ -132,7 +132,11 @@ while arrival != M :
 
                 if people[i][0] == goal[i][0] and people[i][1] == goal[i][1] :
                     arrival += 1
-                    board[goal[i][0]][goal[i][1]] = -1
+    
+    ## 격자 안에 있는 모든 사람이 이동한 후에 편의점에 도착한 칸은 이동할 수 없음
+    for i in range(len(people)) :
+        if people[i][0] == goal[i][0] and people[i][1] == goal[i][1] :
+            board[goal[i][0]][goal[i][1]] = -1
 
     ## 현재 시간이 T분이고 T <= M을 만족한다면, T번 사람은 자신이 가고 싶은 편의점과 가장 가까이 있는 베이스 캠프로 이동
     if T <= M :
